@@ -1,30 +1,59 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ร้านอาหาร</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
+
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                Restaurant Menu
+            </a>
+        </div>
+    </nav>
+
     <div class="container mt-5">
-        <h1 class="text-center">เมนูร้านอาหาร</h1>
-        <form id="menuForm" class="mb-4">
-            <input type="hidden" id="menuId">
-            <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="ชื่อเมนู" required>
-            </div>
-            <div class="form-group">
-                <input type="text" id="description" class="form-control" placeholder="คำอธิบาย" required>
-            </div>
-            <div class="form-group">
-                <input type="number" id="price" class="form-control" placeholder="ราคา" required step="0.01">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">เพิ่มเมนู</button>
-        </form>
-        <h2>รายการเมนู</h2>
-        <div class="row" id="menuList"></div> <!-- Use div with row class -->
+        <div class="text-center mb-4 ">
+            <h1 class="text-center">เมนูร้านอาหาร </h1>
+            <h3 class="text-center">ของ Jeerasak Ananta </h3>
+
+        </div>
+        <div class="border p-4 rounded">
+            <form id="menuForm" class="mb-4">
+                <input type="hidden" id="menuId">
+                <div class="form-group">
+                    <input type="text" id="name" class="form-control" placeholder="ชื่อเมนู" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="description" class="form-control" placeholder="คำอธิบาย" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="price" class="form-control" placeholder="ราคา" required step="0.01">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">เพิ่มเมนู</button>
+            </form>
+        </div>
+        <div class="border p-4 rounded mb-4">
+
+            <h2>รายการเมนู 🍇 </h2>
+            <div class="row" id="menuList"></div>
+        </div>
+
     </div>
     <script src="script.js"></script>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            2025 CS RMUTL Jeerasak Ananta | All Rights Reserved | Contact: jeerasakananta@gmail.com
+        </div>
+    </footer>
 </body>
+
 </html>
