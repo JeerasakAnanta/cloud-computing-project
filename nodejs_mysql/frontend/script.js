@@ -32,15 +32,15 @@ async function fetchMenu() {
 
         const cardPrice = document.createElement('p');
         cardPrice.className = 'card-text font-weight-bold';
-        cardPrice.textContent = `ราคา: ฿${item.price}`;
+        cardPrice.textContent = `ราคา: ${item.price} บาท`;
 
         const editButton = document.createElement('button');
-        editButton.className = 'btn btn-warning btn-sm mx-2';
+        editButton.className = 'btn btn-warning btn-sm mx-2 ';
         editButton.textContent = 'แก้ไข';
         editButton.onclick = () => editMenu(item);
         
         const deleteButton = document.createElement('button');
-        deleteButton.className = 'btn btn-danger btn-sm';
+        deleteButton.className = 'btn btn-danger btn-sm ';
         deleteButton.textContent = 'ลบ';
         deleteButton.onclick = () => deleteMenu(item.id);
         
@@ -113,13 +113,16 @@ function editMenu(item) {
 
 // Delete Menu Function
 async function deleteMenu(id) {
-    const response = await fetch(`/menu/${id}`, {
-        method: 'DELETE'
-    });
-    if (response.ok) {
-        fetchMenu(); // Refresh menu list
-    } else {
-        console.error('Error deleting menu item');
+    const confirmDelete = confirm('คุณต้องการลบเมนูนี้?');
+    if (confirmDelete) {
+        const response = await fetch(`/menu/${id}`, {
+            method: 'DELETE'
+        });
+        if (response.ok) {
+            fetchMenu(); // Refresh menu list
+        } else {
+            console.error('Error deleting menu item');
+        }
     }
 }
 
