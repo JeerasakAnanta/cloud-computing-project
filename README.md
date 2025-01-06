@@ -2,7 +2,8 @@
 
 
 ## 1. php +  Mysql  
-## 2. nodejs + Mysql  
+## 2. nodejs + Mysql
+
 ## 3. flask + Mysql
 
 ## setup ubuntu web server 
@@ -29,6 +30,19 @@ sudo apt install apache2
 - 
 ## setup phpmyadmin
 - 
+## setup nodejs
+- install nodejs 
+```
+sudo apt install nodejs
+```
+- install npm
+```
+sudo apt install npm
+```
+-
+```
+npm install express mysql2 body-parser
+```
 
 ## create mysql database 
 - creat databaes 
