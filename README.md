@@ -3,6 +3,15 @@
 
 ## 1. php +  Mysql  
 ## 2. nodejs + Mysql
+- install independent package
+```
+npm install 
+
+```
+- run project 
+```
+npm run dev  
+```
 
 ## 3. flask + Mysql
 
