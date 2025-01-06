@@ -5,12 +5,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $description = $_POST['description'];
     $price = $_POST['price'];
-    $image = $_POST['image'];
 
-    $stmt = $pdo->prepare("INSERT INTO menu (name, description, price, image) VALUES (?, ?, ?, ?)");
-    $stmt->execute([$name, $description, $price, $image]);
+    $stmt = $pdo->prepare("INSERT INTO menu (name, description, price) VALUES (?, ?, ?)");
+    $stmt->execute([$name, $description, $price]);
 
     header('Location: menu.php');
+    exit;
 }
 ?>
 
@@ -25,9 +25,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <a class="navbar-brand" href="/index.php">หน้าเเรก</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/menu.php">ดูเมนู <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/contact.php">จัดการเมนู <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
     <div class="container mt-5">
         <h1>เพิ่มเมนูใหม่</h1>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">ชื่อเมนู</label>
                 <input type="text" class="form-control" name="name" required>
@@ -40,10 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <label for="price">ราคา</label>
                 <input type="number" step="0.01" class="form-control" name="price" required>
             </div>
-            <div class="form-group">
-                <label for="image">URL ของรูปภาพ</label>
-                <input type="text" class="form-control" name="image" required>
-            </div>
+
             <button type="submit" class="btn btn-primary">เพิ่มเมนู</button>
         </form>
         <a href="menu.php" class="btn btn-link">กลับไปที่เมนู</a>
