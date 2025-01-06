@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านอาหาร</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">เมนูร้านอาหาร</h1>
+        <form id="menuForm" class="mb-4">
+            <input type="hidden" id="menuId">
+            <div class="form-group">
+                <input type="text" id="name" class="form-control" placeholder="ชื่อเมนู" required>
+            </div>
+            <div class="form-group">
+                <input type="text" id="description" class="form-control" placeholder="คำอธิบาย" required>
+            </div>
+            <div class="form-group">
+                <input type="number" id="price" class="form-control" placeholder="ราคา" required step="0.01">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">เพิ่มเมนู</button>
+        </form>
+        <h2>รายการเมนู</h2>
+        <div class="row" id="menuList"></div> <!-- Use div with row class -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
