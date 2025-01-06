@@ -1,0 +1,5 @@
+nodejs_mysql/node_modules/
+nodejs_mysql/.env
+s
+
+flask_mysql/.env

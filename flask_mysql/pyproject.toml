@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "flask-mysql"
+version = "0.1.0"
+description = ""
+authors = ["Game <jeerasakananta@gmail.com>"]
+license = "RMUTL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.0"
+mysql-connector-python = "^9.1.0"
+python-dotenv = "^1.0.1"
+quart = "^0.20.0"
+uvicorn = "^0.34.0"
+gunicorn = "^23.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
