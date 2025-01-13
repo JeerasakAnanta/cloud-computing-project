@@ -82,7 +82,7 @@ sudo mysql -u root -p
 CREATE USER 'adminweb'@'localhost' IDENTIFIED BY 'adminadmin';
 ```
 ```sql
-GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'localhost' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'adminweb'@'localhost' WITH GRANT OPTION;
 ```
 ```sql
 exit;
