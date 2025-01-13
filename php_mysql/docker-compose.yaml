@@ -1,14 +1,5 @@
 services:
-  apache:
-    image: php:8.0-apache
-    container_name: apache_server
-    ports:
-      - "8080:80"
-    volumes:
-      - ./html:/var/www/html
-    networks: 
-      - my_network
-
+ 
   mysql:
     image: mysql:5.7
     container_name: mysql_server
@@ -21,15 +12,13 @@ services:
     networks:
       - my_network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: user
-      PMA_PASSWORD: user_password
+  php:
+    build: .
+    container_name: php_app
     ports:
-      - "8081:80"
+      - "80:80"
+    volumes:
+      - .:/var/www/html
     networks:
       - my_network
 
