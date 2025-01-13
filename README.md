@@ -1,6 +1,92 @@
 # BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing
 
+## setup ubuntu web server 
+- Update system  
+```sh 
+sudo apt update && sudo apt upgrade -y
+```
+- Configure timezone
+```sh
+sudo timedatectl set-timezone Asia/Bangkok
+```
 
+- Set Up a Firewall
+```sh
+sudo apt install ufw
+sudo ufw allow ssh
+sudo ufw enable
+```
+- install apache server
+```sh 
+sudo ufw allow http  
+```
+```sh
+sudo apt install apache2 -y 
+```
+sudo systemctl status apache2
+```
+sudo systemctl restart apache2 
+```
+
+## setup ubuntu mysql server
+- allow mysql port 
+```sh
+sudo ufw allow mysql
+```
+
+- install mysql server  
+```sh
+sudo apt install mysql-server -y
+```
+- check mysql status 
+```sh 
+sudo systemctl status mysql 
+```
+
+## setup phpmyadmin
+- allow phpmyadmin port
+```sh 
+sudo ufw allow 80/tcp
+```
+```sh 
+sudo apt-get install php libapache2-mod-php php-mysql -y
+
+```
+```sh
+sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
+```
+- web server to configure phpmyadmin  `apach2`
+- insall 
+```sh 
+sudo systemctl restart apache2
+```
+- กำหนดให้กับ MySQL และ phpmyadmin
+```sh 
+sudo mysql -u root -p 
+```
+```sql
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+```
+- เปลี่ยนรหัสผ่าน
+```sql 
+ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'admin2004';
+```
+```sql
+FLUSH PRIVILEGES;
+```
+- create new user 
+```sh 
+sudo mysql -u root -p 
+```
+```sql
+CREATE USER 'adminweb'@'localhost' IDENTIFIED BY 'adminadmin';
+```
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'localhost' WITH GRANT OPTION;
+```
+```sql
+exit;
+```
 ## 1. php +  Mysql  
 ## 2. nodejs + Mysql
 - install independent package
@@ -14,31 +100,6 @@ npm run dev
 ```
 
 ## 3. flask + Mysql
-
-## setup ubuntu web server 
-- Update system  
-```sh 
-sudo apt update && sudo apt upgrade -y
-```
-- Configure timezone
-```
-sudo timedatectl set-timezone Asia/Bangkok
-```
-
-- Set Up a Firewall
-```
-sudo apt install ufw
-sudo ufw allow ssh
-sudo ufw enable
-```
-- install apache2
-```
-sudo apt install apache2
-```
-## setup ubuntu mysql server
-- 
-## setup phpmyadmin
-- 
 ## setup nodejs
 - install nodejs 
 ```
