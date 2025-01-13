@@ -1,6 +1,6 @@
 # BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing
 
-## setup ubuntu web server 
+## Setup Ubuntu Web Server 
 - Update system  
 ```sh 
 sudo apt update && sudo apt upgrade -y
@@ -16,114 +16,102 @@ sudo apt install ufw
 sudo ufw allow ssh
 sudo ufw enable
 ```
-- install apache server
+- Install Apache server
 ```sh 
 sudo ufw allow http  
-```
-```sh
 sudo apt install apache2 -y 
-```
 sudo systemctl status apache2
-```
 sudo systemctl restart apache2 
 ```
 
-## setup ubuntu mysql server
-- allow mysql port 
+## Setup Ubuntu MySQL Server
+- Allow MySQL port 
 ```sh
 sudo ufw allow mysql
 ```
 
-- install mysql server  
+- Install MySQL server  
 ```sh
 sudo apt install mysql-server -y
 ```
-- check mysql status 
+- Check MySQL status 
 ```sh 
 sudo systemctl status mysql 
 ```
 
-## setup phpmyadmin
-- allow phpmyadmin port
+## Setup phpMyAdmin
+- Allow phpMyAdmin port
 ```sh 
 sudo ufw allow 80/tcp
 ```
+- Install PHP and phpMyAdmin
 ```sh 
 sudo apt-get install php libapache2-mod-php php-mysql -y
-
-```
-```sh
 sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
 ```
-- web server to configure phpmyadmin  `apach2`
-- insall 
+- Configure phpMyAdmin with Apache
 ```sh 
 sudo systemctl restart apache2
 ```
-- กำหนดให้กับ MySQL และ phpmyadmin
+- Configure MySQL and phpMyAdmin
 ```sh 
 sudo mysql -u root -p 
 ```
 ```sql
-SELECT user,authentication_string,plugin,host FROM mysql.user;
+SELECT user, authentication_string, plugin, host FROM mysql.user;
 ```
-- เปลี่ยนรหัสผ่าน
+- Change root password
 ```sql 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'admin2004';
-```
-```sql
 FLUSH PRIVILEGES;
 ```
-- create new user 
+- Create new user 
 ```sh 
 sudo mysql -u root -p 
 ```
 ```sql
 CREATE USER 'adminweb'@'localhost' IDENTIFIED BY 'adminadmin';
-```
-```sql
 GRANT ALL PRIVILEGES ON *.* TO 'adminweb'@'localhost' WITH GRANT OPTION;
-```
-```sql
 exit;
 ```
-## 1. php +  Mysql  
-## 2. nodejs + Mysql
-- install independent package
-```
-npm install 
 
+## 1. PHP + MySQL  
+## 2. Node.js + MySQL
+- Install independent package
+```sh
+npm install 
 ```
-- run project 
-```
+- Run project 
+```sh
 npm run dev  
 ```
 
-## 3. flask + Mysql
-## setup nodejs
-- install nodejs 
-```
+## 3. Flask + MySQL
+
+## Setup Node.js
+- Install Node.js 
+```sh
 sudo apt install nodejs
 ```
-- install npm
-```
+- Install npm
+```sh
 sudo apt install npm
 ```
--
-```
+- Install required packages
+```sh
 npm install express mysql2 body-parser
 ```
 
-## create mysql database 
-- creat databaes 
+## Create MySQL Database 
+- Create database 
 ```sql
 CREATE DATABASE restaurant_db;
 ```
-- use database
+- Use database
 ```sql 
 USE restaurant_db;
 ```
-- creat table
+- Create table
 ```sql
 CREATE TABLE menu (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -133,7 +121,7 @@ CREATE TABLE menu (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-- insert data
+- Insert data
 ```sql 
 INSERT INTO menu (name, description, price) VALUES 
 ('ข้าวผัดกระเพรา', 'ข้าวผัดกับเนื้อหมูหรือไก่ และผักกระเพราสับ', 60.00),
@@ -157,7 +145,7 @@ INSERT INTO menu (name, description, price) VALUES
 ('ปลาหมึกย่าง', 'ปลาหมึกย่างกับน้ำจิ้มซีฟู้ด', 95.00),
 ('ไข่เจียว', 'ไข่เจียวที่มีรสชาติอร่อย', 40.00);
 ```
-- check sql query in `db.sql`
+- Check SQL query in `db.sql`
 ```sql
-SELECT * from menu;
+SELECT * FROM menu;
 ```
