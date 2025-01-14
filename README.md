@@ -1,5 +1,14 @@
 # BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing
-- by jeerasak ananta ss4 CSRMUTL NAN 
+- by jeerasak ananta ss4 CSRMUTL NAN this repository is for educational purpose only of Cloud Computing course at RMUTL Nan Cloud Computing setup and configuration for Ubuntu Web Server, MySQL, Node.js, Flask, and PHP. for web development with MySQL database.
+
+## Content of this repository 
+- [x] การติดตั้ง Ubuntu Web Server
+- [Setup Ubuntu](#setup-ubuntu-web-server)
+- [Setup MySQL](#setup-ubuntu-mysql-server)
+- [Setup phpMyAdmin](#setup-phpmyadmin)
+- [Setup Node.js](#setup-nodejs)
+- [Create MySQL Database](#create-mysql-database)
+
 ## Setup Ubuntu Web Server 
 - Update system  
 ```sh 
@@ -9,7 +18,6 @@ sudo apt update && sudo apt upgrade -y
 ```sh
 sudo timedatectl set-timezone Asia/Bangkok
 ```
-
 - Set Up a Firewall
 ```sh
 sudo apt install ufw
@@ -29,7 +37,6 @@ sudo systemctl restart apache2
 ```sh
 sudo ufw allow mysql
 ```
-
 - Install MySQL server  
 ```sh
 sudo apt install mysql-server -y
@@ -74,19 +81,6 @@ CREATE USER 'adminweb'@'localhost' IDENTIFIED BY 'adminadmin';
 GRANT ALL PRIVILEGES ON *.* TO 'adminweb'@'localhost' WITH GRANT OPTION;
 exit;
 ```
-
-## 1. PHP + MySQL  
-## 2. Node.js + MySQL
-- Install independent package
-```sh
-npm install 
-```
-- Run project 
-```sh
-npm run dev  
-```
-
-## 3. Flask + MySQL
 
 ## Setup Node.js
 - Install Node.js 
