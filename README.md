@@ -143,3 +143,7 @@ INSERT INTO menu (name, description, price) VALUES
 ```sql
 SELECT * FROM menu;
 ```
+# Reference 
+- [How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 20.04](https://www.digitalocean.com)
+- [How To Install MySQL on Ubuntu 20.04](https://www.digitalocean.com)
+- [How To Install phpMyAdmin with LAMP on Ubuntu 20.04](https://www.digitalocean.com)
