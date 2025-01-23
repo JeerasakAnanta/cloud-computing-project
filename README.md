@@ -2,33 +2,55 @@
 - by jeerasak ananta ss4 CSRMUTL NAN this repository is for educational purpose only of Cloud Computing course at RMUTL Nan Cloud Computing setup and configuration for Ubuntu Web Server, MySQL, Node.js, Flask, and PHP. for web development with MySQL database.
 
 ## Content of this repository 
-- [x] การติดตั้ง Ubuntu Web Server
-- [Setup Ubuntu](#setup-ubuntu-web-server)
-- [Setup MySQL](#setup-ubuntu-mysql-server)
-- [Setup phpMyAdmin](#setup-phpmyadmin)
-- [Setup Node.js](#setup-nodejs)
-- [Create MySQL Database](#create-mysql-database)
+- [BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing](#bsccs409-การประมวลผลกลุ่ม-เมฆ-cloud-computing)
+  - [Content of this repository](#content-of-this-repository)
+  - [Setup Ubuntu Web Server](#setup-ubuntu-web-server)
+    - [Set Up a Firewall](#set-up-a-firewall)
+  - [install Apache server](#install-apache-server)
+  - [Setup Ubuntu MySQL Server](#setup-ubuntu-mysql-server)
+  - [Setup phpMyAdmin](#setup-phpmyadmin)
+  - [Setup Node.js](#setup-nodejs)
+  - [Create MySQL Database](#create-mysql-database)
+- [Reference](#reference)
 
 ## Setup Ubuntu Web Server 
 - Update system  
 ```sh 
 sudo apt update && sudo apt upgrade -y
-```
+```sh
 - Configure timezone
 ```sh
 sudo timedatectl set-timezone Asia/Bangkok
 ```
-- Set Up a Firewall
+### Set Up a Firewall
+- Install UFW
 ```sh
 sudo apt install ufw
+```
+- Allow SSH port
+```sh
 sudo ufw allow ssh
+```
+- Enable UFW
+```sh
 sudo ufw enable
 ```
+## install Apache server
+- Allow Apache port
+```sh
+sudo ufw allow http
+```
+
 - Install Apache server
 ```sh 
-sudo ufw allow http  
-sudo apt install apache2 -y 
+sudo apt install apache2 -y
+```
+- Check Apache status 
+```sh
 sudo systemctl status apache2
+```
+- Check Apache version 
+```sh
 sudo systemctl restart apache2 
 ```
 
@@ -51,9 +73,12 @@ sudo systemctl status mysql
 ```sh 
 sudo ufw allow 80/tcp
 ```
-- Install PHP and phpMyAdmin
+- Install PHP 
 ```sh 
 sudo apt-get install php libapache2-mod-php php-mysql -y
+```
+- Install phpMyAdmin
+```sh
 sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
 ```
 - Configure phpMyAdmin with Apache
