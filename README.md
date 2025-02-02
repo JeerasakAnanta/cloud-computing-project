@@ -17,7 +17,7 @@
 - Update system  
 ```sh 
 sudo apt update && sudo apt upgrade -y
-```sh
+```
 - Configure timezone
 ```sh
 sudo timedatectl set-timezone Asia/Bangkok
