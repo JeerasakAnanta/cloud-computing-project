@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ตรวจจับป้ายทะเบียนรถ</title>
+
+
+    <!-- Include Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        #image-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .bounding-box {
+            position: absolute;
+            border: 3px solid red;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <nav class="bg-white shadow dark:bg-gray-800">
+        <div class="container px-6 py-3 mx-auto">
+            <div class="flex items-center justify-between">
+                <div>
+                    <a class="text-2xl font-bold text-gray-800 dark:text-white lg:text-3xl" href="#">CS RMUTL</a>
+                </div>
+                <div class="lg:flex lg:items-center lg:justify-between">
+                    <nav class="hidden space-x-4 lg:flex">
+                        <a href="#"
+                            class="text-sm font-medium text-gray-700 dark:text-gray-200 hover:underline">หน้าเเรก</a>
+                    </nav>
+                    <button
+                        class="flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-500 rounded-lg lg:hidden hover:bg-blue-600">
+                        Menu
+                        <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto p-4">
+
+        <h1 class="text-3xl font-bold text-center mb-6 p-4 ">ตรวจจับป้ายทะเบียนรถ</h1>
+        <p>
+            โดยใช้ใช้งาน Modle yolo
+        </p>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+
+            <!-- Input your image  -->
+            <div class="text-center">
+                <button id="upload-button"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">อัปโหลดรูปภาพ</button>
+                <input type="file" id="image-input" accept="image/*" class="hidden">
+            </div>
+
+            <div class=" text-center p-4">
+
+                <!-- Image Preview and Bounding Boxes Container -->
+                <div id="image-container" class="flex justify-center border border-gray-300 p-4">
+                    <img id="image-preview" src="#" alt="Image Preview" class="w-400 h-600">
+                </div>
+            </div>
+
+            <!-- Predictions List -->
+            <div class="mt-6">
+                <h2 class="text-xl font-semibold mb-2">Predictions:</h2>
+                <ul id="prediction-list" class="list-disc pl-5"></ul>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white shadow dark:bg-gray-800 mt-6">
+        <div class="container px-6 py-3 mx-auto">
+            <div class="flex flex-col items-center">
+                <p class="text-gray-800 dark:text-white">© 2023 CS RMUTL. Devlop</p>
+                <div class="flex mt-2">
+                    <a href="https://github.com/JeerasakAnanta"
+                        class="text-gray-800 dark:text-white hover:underline mx-2">about me</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Include JavaScript -->
+    <script>
+        // Handle button click to trigger file input
+        document.getElementById('upload-button').addEventListener('click', function () {
+            document.getElementById('image-input').click();
+        });
+
+        // Handle image upload and display preview
+        document.getElementById('image-input').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imagePreview = document.getElementById('image-preview');
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+
+                    // Clear previous bounding boxes
+                    const imageContainer = document.getElementById('image-container');
+                    imageContainer.querySelectorAll('.bounding-box').forEach(box => box.remove());
+
+                    // Send the image to the server for prediction
+                    predictImage(file);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Send the image to the Flask backend for prediction
+        function predictImage(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+
+            fetch('/predict', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Display predictions
+                    const predictionList = document.getElementById('prediction-list');
+                    predictionList.innerHTML = '';  // Clear previous predictions
+
+                    data.forEach(prediction => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Class: ${prediction.class_name}, Confidence: ${(prediction.confidence * 100).toFixed(2)}%, BBox: [${prediction.bbox.join(', ')}]`;
+                        predictionList.appendChild(listItem);
+
+                        // Draw bounding box on the image
+                        drawBoundingBox(prediction.bbox, prediction.class_name);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // Draw bounding box on the image
+        function drawBoundingBox(bbox, className) {
+            const imagePreview = document.getElementById('image-preview');
+            const imageContainer = document.getElementById('image-container');
+
+            const [x1, y1, x2, y2] = bbox;
+
+            // Calculate the scaling factor
+            const scaleX = imagePreview.naturalWidth / imagePreview.width;
+            const scaleY = imagePreview.naturalHeight / imagePreview.height;
+
+            // Create a bounding box element
+            const box = document.createElement('div');
+            box.className = 'bounding-box';
+            box.style.left = `${x1 / scaleX}px`;
+            box.style.top = `${y1 / scaleY}px`;
+            box.style.width = `${(x2 - x1) / scaleX}px`;
+            box.style.height = `${(y2 - y1) / scaleY}px`;
+
+            // Add class name label
+            const label = document.createElement('div');
+            label.className = 'text-xs text-white bg-red-500 px-1';
+            label.textContent = className;
+            box.appendChild(label);
+
+            // Append the bounding box to the image container
+            imageContainer.appendChild(box);
+        }
+    </script>
+</body>
+
+</html>

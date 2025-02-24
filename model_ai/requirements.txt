@@ -1,0 +1,5 @@
+flask[async]
+ultralytics
+pillow
+gunicorn
+uvicorn
