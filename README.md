@@ -1,103 +1,118 @@
-# BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing
-- by jeerasak ananta ss4 CSRMUTL NAN this repository is for educational purpose only of Cloud Computing course at RMUTL Nan Cloud Computing setup and configuration for Ubuntu Web Server, MySQL, Node.js, Flask, and PHP. for web development with MySQL database.
+# BSCCS409 การประมวลผลกลุ่มเมฆ Cloud Computing
+- จัดทำโดย จีรศักดิ์ อนันต๊ะ SS4 CSRMUTL น่าน ที่เก็บนี้มีวัตถุประสงค์เพื่อ การศึกษาสำหรับรายวิชา การประมวลผลกลุ่มเมฆที่ RMUTL น่าน การตั้งค่า และ การกำหนดค่าสำหรับ รายวิชา Cloud Computing สำหรับ **Ubuntu Web Server**,**MySQL**, **Node JS**, **Flask**, และ **PHP** สำหรับการพัฒนาเว็บการเชื่อมต่อฐานข้อมูล ด้วย  **MySQL** 
 
-## Content of this repository 
-- [BSCCS409 การประมวลผลกลุ่ม เมฆ Cloud Computing](#bsccs409-การประมวลผลกลุ่ม-เมฆ-cloud-computing)
-  - [Content of this repository](#content-of-this-repository)
-  - [Setup Ubuntu Web Server](#setup-ubuntu-web-server)
-    - [Set Up a Firewall](#set-up-a-firewall)
-  - [install Apache server](#install-apache-server)
-  - [Setup Ubuntu MySQL Server](#setup-ubuntu-mysql-server)
-  - [Setup phpMyAdmin](#setup-phpmyadmin)
-  - [Setup Node.js](#setup-nodejs)
-  - [Create MySQL Database](#create-mysql-database)
-- [Reference](#reference)
+## เนื้อหาการตั้งค่า 
+- [BSCCS409 การประมวลผลกลุ่มเมฆ Cloud Computing](#bsccs409-การประมวลผลกลุ่มเมฆ-cloud-computing)
+  - [เนื้อหาการตั้งค่า](#เนื้อหาการตั้งค่า)
+  - [คู่มือการติดตั้งเพิ่มเติม](#คู่มือการติดตั้งเพิ่มเติม)
+  - [ตั้งค่า Ubuntu WebServer](#ตั้งค่า-ubuntu-webserver)
+    - [ตั้งค่าไฟร์วอลล์](#ตั้งค่าไฟร์วอลล์)
+  - [ติดตั้ง Apache server](#ติดตั้ง-apache-server)
+  - [ตั้งค่า Ubuntu MySQL Server](#ตั้งค่า-ubuntu-mysql-server)
+  - [ตั้งค่า phpMyAdmin](#ตั้งค่า-phpmyadmin)
+  - [ตั้งค่า Node.js](#ตั้งค่า-nodejs)
+  - [สร้างฐานข้อมูล MySQL](#สร้างฐานข้อมูล-mysql)
+- [อ้างอิง](#อ้างอิง)
 
-## Setup Ubuntu Web Server 
-- Update system  
+## คู่มือการติดตั้งเพิ่มเติม
+- [Wordpress กับ MySQL]()
+- [PHP กับ MySQL](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/php_mysql)
+  
+- [Node.js กับ MySQL](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/nodejs_mysql)
+- [Flask กับ MySQL](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/flask_mysql) 
+- [Deploy iris model](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/iris_model)
+---
+## ตั้งค่า Ubuntu WebServer
+- อัปเดตระบบ  
 ```sh 
 sudo apt update && sudo apt upgrade -y
 ```
-- Configure timezone
+- ตั้งค่าเวลา
 ```sh
 sudo timedatectl set-timezone Asia/Bangkok
 ```
-### Set Up a Firewall
-- Install UFW
+### ตั้งค่าไฟร์วอลล์
+- ติดตั้ง UFW
 ```sh
 sudo apt install ufw
 ```
-- Allow SSH port
-```sh
-sudo ufw allow ssh
-```
-- Enable UFW
+- เปิดใช้งาน UFW
 ```sh
 sudo ufw enable
 ```
-## install Apache server
-- Allow Apache port
+- อนุญาตพอร์ต SSH
+```sh
+sudo ufw allow ssh
+```
+- ตัวสอบ FUW
+```sh
+sudo ufw status
+```
+
+
+## ติดตั้ง Apache server
+- อนุญาตพอร์ต Apache
 ```sh
 sudo ufw allow http
 ```
 
-- Install Apache server
+- ติดตั้ง Apache server
 ```sh 
 sudo apt install apache2 -y
 ```
-- Check Apache status 
+- ตรวจสอบสถานะ Apache 
 ```sh
 sudo systemctl status apache2
 ```
-- Check Apache version 
+- ตรวจสอบเวอร์ชัน Apache 
 ```sh
 sudo systemctl restart apache2 
 ```
 
-## Setup Ubuntu MySQL Server
-- Allow MySQL port 
+## ตั้งค่า Ubuntu MySQL Server
+- อนุญาตพอร์ต MySQL 
 ```sh
 sudo ufw allow mysql
 ```
-- Install MySQL server  
+- ติดตั้ง MySQL server  
 ```sh
 sudo apt install mysql-server -y
 ```
-- Check MySQL status 
+- ตรวจสอบสถานะ MySQL 
 ```sh 
 sudo systemctl status mysql 
 ```
 
-## Setup phpMyAdmin
-- Allow phpMyAdmin port
+## ตั้งค่า phpMyAdmin
+- อนุญาตพอร์ต phpMyAdmin
 ```sh 
 sudo ufw allow 80/tcp
 ```
-- Install PHP 
+- ติดตั้ง PHP 
 ```sh 
 sudo apt-get install php libapache2-mod-php php-mysql -y
 ```
-- Install phpMyAdmin
+- ติดตั้ง phpMyAdmin
 ```sh
 sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
 ```
-- Configure phpMyAdmin with Apache
+- กำหนดค่า phpMyAdmin กับ Apache
 ```sh 
 sudo systemctl restart apache2
 ```
-- Configure MySQL and phpMyAdmin
+- กำหนดค่า MySQL และ phpMyAdmin
 ```sh 
 sudo mysql -u root -p 
 ```
 ```sql
 SELECT user, authentication_string, plugin, host FROM mysql.user;
 ```
-- Change root password
+- เปลี่ยนรหัสผ่าน root
 ```sql 
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'admin2004';
 FLUSH PRIVILEGES;
 ```
-- Create new user 
+- สร้างผู้ใช้ใหม่ 
 ```sh 
 sudo mysql -u root -p 
 ```
@@ -107,30 +122,30 @@ GRANT ALL PRIVILEGES ON *.* TO 'adminweb'@'localhost' WITH GRANT OPTION;
 exit;
 ```
 
-## Setup Node.js
-- Install Node.js 
+## ตั้งค่า Node.js
+- ติดตั้ง Node.js 
 ```sh
 sudo apt install nodejs
 ```
-- Install npm
+- ติดตั้ง npm
 ```sh
 sudo apt install npm
 ```
-- Install required packages
+- ติดตั้งแพ็คเกจที่จำเป็น
 ```sh
 npm install express mysql2 body-parser
 ```
 
-## Create MySQL Database 
-- Create database 
+## สร้างฐานข้อมูล MySQL 
+- สร้างฐานข้อมูล 
 ```sql
 CREATE DATABASE restaurant_db;
 ```
-- Use database
+- ใช้ฐานข้อมูล
 ```sql 
 USE restaurant_db;
 ```
-- Create table
+- สร้างตาราง
 ```sql
 CREATE TABLE menu (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -140,7 +155,7 @@ CREATE TABLE menu (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-- Insert data
+- เพิ่มข้อมูล
 ```sql 
 INSERT INTO menu (name, description, price) VALUES 
 ('ข้าวผัดกระเพรา', 'ข้าวผัดกับเนื้อหมูหรือไก่ และผักกระเพราสับ', 60.00),
@@ -164,11 +179,11 @@ INSERT INTO menu (name, description, price) VALUES
 ('ปลาหมึกย่าง', 'ปลาหมึกย่างกับน้ำจิ้มซีฟู้ด', 95.00),
 ('ไข่เจียว', 'ไข่เจียวที่มีรสชาติอร่อย', 40.00);
 ```
-- Check SQL query in `db.sql`
+- ตรวจสอบคำสั่ง SQL ใน `db.sql`
 ```sql
 SELECT * FROM menu;
 ```
-# Reference 
+# อ้างอิง 
 - [How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 20.04](https://www.digitalocean.com)
 - [How To Install MySQL on Ubuntu 20.04](https://www.digitalocean.com)
 - [How To Install phpMyAdmin with LAMP on Ubuntu 20.04](https://www.digitalocean.com)
