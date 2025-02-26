@@ -65,20 +65,7 @@ sudo apt install mysql-server -y
 ### ติดตั้งแพ็คเกจที่จำเป็น
 
 ```bash
-sudo apt install apache2 \
-                 ghostscript \
-                 libapache2-mod-php \
-                 mysql-server \
-                 php \
-                 php-bcmath \
-                 php-curl \
-                 php-imagick \
-                 php-intl \
-                 php-json \
-                 php-mbstring \
-                 php-mysql \
-                 php-xml \
-                 php-zip -y 
+sudo apt install apache2 ghostscript libapache2-mod-php mysql-server php php-bcmath php-curl php-imagick php-intl php-json php-mbstring php-mysql php-xml php-zip -y 
 ```
 
 ---
