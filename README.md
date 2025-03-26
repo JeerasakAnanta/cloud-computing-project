@@ -5,13 +5,14 @@
 - [BSCCS409 การประมวลผลกลุ่มเมฆ Cloud Computing](#bsccs409-การประมวลผลกลุ่มเมฆ-cloud-computing)
   - [เนื้อหาการตั้งค่า](#เนื้อหาการตั้งค่า)
   - [คู่มือการติดตั้งเพิ่มเติม](#คู่มือการติดตั้งเพิ่มเติม)
-  - [ตั้งค่า Ubuntu WebServer](#ตั้งค่า-ubuntu-webserver)
-    - [ตั้งค่าไฟร์วอลล์](#ตั้งค่าไฟร์วอลล์)
-  - [ติดตั้ง Apache server](#ติดตั้ง-apache-server)
-  - [ตั้งค่า Ubuntu MySQL Server](#ตั้งค่า-ubuntu-mysql-server)
-  - [ตั้งค่า phpMyAdmin](#ตั้งค่า-phpmyadmin)
+  - [1.ตั้งค่า Ubuntu WebServer](#1ตั้งค่า-ubuntu-webserver)
+    - [1.1 ตั้งค่าไฟร์วอลล์](#11-ตั้งค่าไฟร์วอลล์)
+  - [2.ติดตั้ง Apache server](#2ติดตั้ง-apache-server)
+  - [3.ติดตั้ง MySQL Server](#3ติดตั้ง-mysql-server)
+  - [4.ตั้งค่า phpMyAdmin](#4ตั้งค่า-phpmyadmin)
   - [ตั้งค่า Node.js](#ตั้งค่า-nodejs)
   - [สร้างฐานข้อมูล MySQL](#สร้างฐานข้อมูล-mysql)
+  - [clone โปรเจค](#clone-โปรเจค)
 - [อ้างอิง](#อ้างอิง)
 
 ## คู่มือการติดตั้งเพิ่มเติม
@@ -22,16 +23,16 @@
 - [Flask กับ MySQL](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/flask_mysql) 
 - [Deploy iris model](https://github.com/JeerasakAnanta/cloud-computing-project/tree/main/iris_model)
 ---
-## ตั้งค่า Ubuntu WebServer
+##  1.ตั้งค่า Ubuntu WebServer
 - อัปเดตระบบ  
 ```sh 
 sudo apt update && sudo apt upgrade -y
 ```
-- ตั้งค่าเวลา
+- ตั้งค่าเวลา ให้ตรงกับประเทศไทย 
 ```sh
 sudo timedatectl set-timezone Asia/Bangkok
 ```
-### ตั้งค่าไฟร์วอลล์
+### 1.1 ตั้งค่าไฟร์วอลล์
 - ติดตั้ง UFW
 ```sh
 sudo apt install ufw
@@ -50,7 +51,7 @@ sudo ufw status
 ```
 
 
-## ติดตั้ง Apache server
+## 2.ติดตั้ง Apache server
 - อนุญาตพอร์ต Apache
 ```sh
 sudo ufw allow http
@@ -64,12 +65,12 @@ sudo apt install apache2 -y
 ```sh
 sudo systemctl status apache2
 ```
-- ตรวจสอบเวอร์ชัน Apache 
+- restart  Apache web server 
 ```sh
 sudo systemctl restart apache2 
 ```
 
-## ตั้งค่า Ubuntu MySQL Server
+## 3.ติดตั้ง MySQL Server
 - อนุญาตพอร์ต MySQL 
 ```sh
 sudo ufw allow mysql
@@ -78,12 +79,18 @@ sudo ufw allow mysql
 ```sh
 sudo apt install mysql-server -y
 ```
-- ตรวจสอบสถานะ MySQL 
+-  ตั้งค่าความปลอดภัยของ MySQL
+```sh
+sudo mysql_secure_installation
+```
+- เลือก `Y` เพื่อตั้งค่าความปลอดภัย
+
+- เปิดใช้งาน MySQL server
 ```sh 
-sudo systemctl status mysql 
+sudo systemctl start mysql
 ```
 
-## ตั้งค่า phpMyAdmin
+## 4.ตั้งค่า phpMyAdmin
 - อนุญาตพอร์ต phpMyAdmin
 ```sh 
 sudo ufw allow 80/tcp
@@ -96,7 +103,7 @@ sudo apt-get install php libapache2-mod-php php-mysql -y
 ```sh
 sudo apt install phpmyadmin php-mbstring php-zip php-gd php-json php-curl -y
 ```
-- กำหนดค่า phpMyAdmin กับ Apache
+- restart phpMyAdmin กับ Apache
 ```sh 
 sudo systemctl restart apache2
 ```
@@ -112,7 +119,7 @@ SELECT user, authentication_string, plugin, host FROM mysql.user;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH caching_sha2_password BY 'admin2004';
 FLUSH PRIVILEGES;
 ```
-- สร้างผู้ใช้ใหม่ 
+- สร้างผู้ใช้ใหม่ create user
 ```sh 
 sudo mysql -u root -p 
 ```
@@ -137,9 +144,11 @@ npm install express mysql2 body-parser
 ```
 
 ## สร้างฐานข้อมูล MySQL 
-- สร้างฐานข้อมูล 
+- ไปที่ phpMyAdmin ที่ http://localhost/phpmyadmin
+  
+- สร้างฐานข้อมูล `restaurant_db`
 ```sql
-CREATE DATABASE restaurant_db;
+CREATE DATABASE restaurant_db; 
 ```
 - ใช้ฐานข้อมูล
 ```sql 
@@ -179,9 +188,13 @@ INSERT INTO menu (name, description, price) VALUES
 ('ปลาหมึกย่าง', 'ปลาหมึกย่างกับน้ำจิ้มซีฟู้ด', 95.00),
 ('ไข่เจียว', 'ไข่เจียวที่มีรสชาติอร่อย', 40.00);
 ```
-- ตรวจสอบคำสั่ง SQL ใน `db.sql`
+- ตรวจสอบคำสั่ง SQL ใน `restaurant_db`
 ```sql
 SELECT * FROM menu;
+```
+## clone โปรเจค
+```sh 
+git clone 
 ```
 # อ้างอิง 
 - [How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 20.04](https://www.digitalocean.com)
