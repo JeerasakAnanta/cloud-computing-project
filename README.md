@@ -194,7 +194,11 @@ SELECT * FROM menu;
 ```
 ## clone โปรเจค
 ```sh 
-git clone 
+git clone  https://github.com/JeerasakAnanta/cloud-computing-project.git
+```
+- ls -l
+```sh
+ls -l 
 ```
 # อ้างอิง 
 - [How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 20.04](https://www.digitalocean.com)
