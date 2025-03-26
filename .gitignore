@@ -6,3 +6,7 @@ flask_mysql/.env
 runs/detect
 model_ai/train_model/License_Plate_Recognition/
 flask_mysql/.env_flask/
+
+
+# flaskhost
+flaskHost/.env_host/
