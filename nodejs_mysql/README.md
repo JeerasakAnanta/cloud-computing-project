@@ -1,5 +1,4 @@
-## Install nodejs and mysql
-
+# Install nodejs and mysql
 
 ##  1.ตั้งค่า Ubuntu WebServer
 - อัปเดตระบบ  
@@ -13,7 +12,7 @@ sudo timedatectl set-timezone Asia/Bangkok
 ### 1.1 ตั้งค่าไฟร์วอลล์
 - ติดตั้ง UFW
 ```sh
-sudo apt install ufw
+sudo apt install ufw 
 ```
 - เปิดใช้งาน UFW
 ```sh
@@ -23,7 +22,7 @@ sudo ufw enable
 ```sh
 sudo ufw allow ssh
 ```
-- ตัวสอบ FUW
+- ตัวสอบ สถานะของ FUW
 ```sh
 sudo ufw status
 ```
@@ -51,13 +50,13 @@ sudo systemctl restart apache2
 ## 3.ติดตั้ง MySQL Server
 - อนุญาตพอร์ต MySQL 
 ```sh
-sudo ufw allow mysql
+sudo ufw allow mysql -y 
 ```
 - ติดตั้ง MySQL server  
 ```sh
 sudo apt install mysql-server -y
 ```
--  ตั้งค่าความปลอดภัยของ MySQL
+-  ตั้งค่าความปลอดภัยของ MySQL server 
 ```sh
 sudo mysql_secure_installation
 ```
@@ -89,6 +88,7 @@ sudo systemctl restart apache2
 ```sh 
 sudo mysql -u root -p 
 ```
+- สร้างฐานข้อมูล phpMyAdmin 
 ```sql
 SELECT user, authentication_string, plugin, host FROM mysql.user;
 ```
@@ -101,24 +101,11 @@ FLUSH PRIVILEGES;
 ```sh 
 sudo mysql -u root -p 
 ```
+- สร้างผู้ใช้
 ```sql
 CREATE USER 'adminweb'@'localhost' IDENTIFIED BY 'adminadmin';
 GRANT ALL PRIVILEGES ON *.* TO 'adminweb'@'localhost' WITH GRANT OPTION;
 exit;
-```
-
-## ตั้งค่า Node.js
-- ติดตั้ง Node.js 
-```sh
-sudo apt install nodejs
-```
-- ติดตั้ง npm
-```sh
-sudo apt install npm
-```
-- ติดตั้งแพ็คเกจที่จำเป็น
-```sh
-npm install express mysql2 body-parser
 ```
 
 ## สร้างฐานข้อมูล MySQL 
@@ -132,7 +119,7 @@ CREATE DATABASE restaurant_db;
 ```sql 
 USE restaurant_db;
 ```
-- สร้างตาราง
+- สร้างตาราง menu
 ```sql
 CREATE TABLE menu (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -142,7 +129,7 @@ CREATE TABLE menu (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
-- เพิ่มข้อมูลใน ฐานข้อมูล
+- เพิ่มข้อมูลใน ฐานข้อมูล สำหรับตาราง menu 
 ```sql 
 INSERT INTO menu (name, description, price) VALUES 
 ('ข้าวผัดกระเพรา', 'ข้าวผัดกับเนื้อหมูหรือไก่ และผักกระเพราสับ', 60.00),
@@ -170,6 +157,8 @@ INSERT INTO menu (name, description, price) VALUES
 ```sql
 SELECT * FROM menu;
 ```
+# Install Node.js and MySQL
+
 ## clone โปรเจค
 ```sh 
 git clone  https://github.com/JeerasakAnanta/cloud-computing-project.git
@@ -177,6 +166,15 @@ git clone  https://github.com/JeerasakAnanta/cloud-computing-project.git
 - cd `nodejs_mysql` 
 ```
 cd nodejs_mysql
+```
+## ตั้งค่า Node.js
+- ติดตั้ง Node.js 
+```sh
+sudo apt install nodejs -y 
+```
+- ติดตั้ง npm
+```sh
+sudo apt install npm -y 
 ```
 - ติดตั้งแพ็คเกจที่จำเป็น
 ```sh
